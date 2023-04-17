@@ -1,6 +1,23 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import store from "store";
+import { ThemeProvider } from "theme";
+import { Provider } from "react-redux";
+import { CacheProvider } from "@emotion/react";
+import createEmotionCache from "theme/createEmotionCache";
+import { Layout } from "components/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+const clientSideEmotionCache = createEmotionCache();
+
+export default function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
+    return (
+        <CacheProvider value={emotionCache}>
+            <ThemeProvider>
+                <Provider store={store}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </Provider>
+            </ThemeProvider>
+        </CacheProvider>
+    );
 }
