@@ -66,7 +66,6 @@ export default function SignUp(): JSX.Element {
                     <Grid item>
                         <TextField
                             size="small"
-                            autoFocus
                             placeholder="Type your email address"
                             fullWidth
                             {...register("email", { required: true })}
